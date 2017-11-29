@@ -3,12 +3,13 @@ require('droplet_kit')
 mytoken='mysupersecrettoken'
 thehostname=(0...50).map { (65 + rand(26)).chr }.join.downcase
 domain='example.com'
+myemail=''
 $myip=''
 sshkeys=Array.new
 sshkeys[0]='00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00'
 
 
-metadata="#!/bin/bash\napt-get update\napt-get -y install apache2 at\napt-get -y install python-letsencrypt-apache\n/usr/bin/letsencrypt --agree-tos --apache -d "+thehostname+"."+domain+" --email luke@gripenberg.me --non-interactive --redirect\nssh-keygen -l -f /etc/ssh/ssh_host_ecdsa_key > /var/www/html/hostkey\necho '' > /var/www/html/index.html"
+metadata="#!/bin/bash\napt-get update\napt-get -y install apache2 at\napt-get -y install python-letsencrypt-apache\n/usr/bin/letsencrypt --agree-tos --apache -d "+thehostname+"."+domain+" --email '+myemail+' --non-interactive --redirect\nssh-keygen -l -f /etc/ssh/ssh_host_ecdsa_key > /var/www/html/hostkey\necho '' > /var/www/html/index.html"
 
 client = DropletKit::Client.new(access_token: mytoken)
 droplet = DropletKit::Droplet.new(
