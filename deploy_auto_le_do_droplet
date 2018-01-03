@@ -9,7 +9,11 @@ sshkeys=Array.new
 sshkeys[0]='00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00'
 
 
-metadata="#!/bin/bash\napt-get update\napt-get -y install apache2 at\napt-get -y install python-letsencrypt-apache\n/usr/bin/letsencrypt --agree-tos --apache -d "+thehostname+"."+domain+" --email '+myemail+' --non-interactive --redirect\nssh-keygen -l -f /etc/ssh/ssh_host_ecdsa_key > /var/www/html/hostkey\necho '' > /var/www/html/index.html"
+metadata="#!/bin/bash\napt-get update
+apt-get -y install apache2 at
+apt-get -y install python-letsencrypt-apache
+/usr/bin/letsencrypt --agree-tos --apache -d "+thehostname+"."+domain+" --email '+myemail+' --non-interactive --redirect
+ssh-keygen -l -f /etc/ssh/ssh_host_ecdsa_key > /var/www/html/hostkey\necho '' > /var/www/html/index.html"
 
 client = DropletKit::Client.new(access_token: mytoken)
 droplet = DropletKit::Droplet.new(
